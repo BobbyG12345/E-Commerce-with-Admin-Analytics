@@ -11,9 +11,17 @@ const LoginPage = () => {
   const { login, loading } = useUserStore();
   const { getCartItems } = useCartStore();
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    await login(email, password);
-    getCartItems();
+    try {
+      const result = await login(email, password); // 让 login() 显式返回结果
+      if (result.success) {
+        await getCartItems(); // 只在登录成功后调用
+      } else {
+        // 登录失败，已经会提示错误信息
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      // 可选：显示友好错误提示
+    }
   };
   return (
     <div className="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
