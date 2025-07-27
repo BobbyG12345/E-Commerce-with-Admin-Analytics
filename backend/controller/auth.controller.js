@@ -85,8 +85,7 @@ export const login = async (req, res) => {
     const { accessToken, refreshToken } = generateTokens(user.id);
     await storeRefreshToken(user.id, refreshToken);
     setCookies(res, accessToken, refreshToken);
-    res.status(200).json({
-      success: true,
+    return res.status(200).json({
       user: {
         _id: user._id,
         name: user.name,
@@ -97,9 +96,10 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.log("Error in login controller", error);
-    res
-      .status(500)
-      .json({ message: "Error logging in user", error: error.message });
+    res.status(500).json({
+      message: "Error logging in user",
+      error: error.message,
+    });
   }
 };
 

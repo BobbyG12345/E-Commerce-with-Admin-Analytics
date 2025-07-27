@@ -15,7 +15,8 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const result = await login(email, password); // 让 login() 显式返回结果
-      if (result.success) {
+      //console.log("result", result, result.data, result.data.success);
+      if (result.data.success) {
         await getCartItems(); // 只在登录成功后调用
       } else {
         // 登录失败，已经会提示错误信息

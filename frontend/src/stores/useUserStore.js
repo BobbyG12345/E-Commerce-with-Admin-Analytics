@@ -35,10 +35,12 @@ export const useUserStore = create((set, get) => ({
       const response = await axios.post("/auth/login", { email, password });
 
       set({ user: response.data.user, loading: false });
-      toast.success("User logged in successfully");
+      toast.success("User logged in successfully", { id: "login" });
+      return { success: true, data: response.data };
     } catch (error) {
       set({ loading: false });
       toast.error(error.response.data.message || "Something went wrong");
+      return { success: false };
     }
   },
 
