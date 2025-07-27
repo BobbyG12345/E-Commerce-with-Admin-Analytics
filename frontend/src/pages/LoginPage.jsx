@@ -11,6 +11,7 @@ const LoginPage = () => {
   const { login, loading } = useUserStore();
   const { getCartItems } = useCartStore();
   const handleSubmit = async (e) => {
+    // e.preventDefault();
     e.preventDefault();
     try {
       const result = await login(email, password); // 让 login() 显式返回结果
