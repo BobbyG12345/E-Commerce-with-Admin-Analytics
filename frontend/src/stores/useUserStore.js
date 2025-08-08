@@ -51,7 +51,15 @@ export const useUserStore = create((set, get) => ({
       set({ user: response?.data, checkingAuth: false });
     } catch (error) {
       console.log("Error in checkAuth", error);
-      set({ user: null, checkingAuth: false });
+      try {
+        await axios.post("/auth/refresh-token");
+        const profileResponse = await axios.get("/auth/profile");
+
+        set({ user: profileResponse?.data, checkingAuth: false });
+      } catch (refreshError) {
+        console.log("Refresh token also failed", refreshError);
+        set({ user: null, checkingAuth: false });
+      }
     }
   },
 
