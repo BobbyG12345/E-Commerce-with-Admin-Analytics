@@ -22,7 +22,7 @@ const GiftCouponCard = () => {
 
   const handleRemoveCoupon = async () => {
     await removeCoupon();
-    setUserInputCode("");
+    //setUserInputCode("");
   };
 
   return (
